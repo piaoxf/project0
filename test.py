@@ -62,6 +62,16 @@ def check_tqdm():
     except ModuleNotFoundError:
         log(red("FAIL"), "tqdm not installed")
 
+def check_randomization():
+    try:
+        import numpy as np
+        from main import randomization
+        A = randomization(5)
+        assert A.shape == (5, 1)
+        log(green("PASS"), "randomization() returns a 5x1 Numpy array")
+    except Exception as e:
+        log(red("FAIL"), "randomization() does not return a 5x1 Numpy array")
+        log_exit(e)
 
 def main():
     try:
@@ -70,6 +80,7 @@ def main():
         check_matplotlib()
         check_torch()
         check_tqdm()
+        check_randomization()
     except Exception:
         log_exit(traceback.format_exc())
 
